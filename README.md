@@ -13,6 +13,7 @@ Vamos lidar com energia elétrica, sendo assim, todo cuidado é pouco. Não nos 
 - Placa compatível Arduino
 - 2 resistores de 10Kohm
 - Shield com 2 relays
+- Servo ( Opcional )
 
 # Acompanhe passo a passo como montar seu Shield do Horta do Futuro. Veja só como é fácil.
 
