@@ -1,0 +1,110 @@
+/*
+	Horta do Futuro - Open|Indoor
+	Controle de iluminação e rega opensource.
+
+	Acompanhe passo a passo como montar seu Shield do Horta do Futuro no
+	README do Github. Imprima o layout, faça as soldas e comece a plantar.
+
+	Esse código está sob licensa MIT
+
+	Ultima modificação 10/2015
+	por Will Gittens
+*/
+
+
+// Adiciona Bibliotecas do Arduino
+	#include <Servo.h>
+
+// Define portas
+	Servo pinoServo;
+	const int pinoRega = 9;
+	const int pinoLuz = 8;
+	const int pinoSolo1 = A0;
+
+// Configura horario
+	int hora = 23; // Atenção: Hora atual no momento de ligar o Arduino
+	int tempo = 0;
+	int ligar = 6;
+	int desligar = 22;
+	int alimentar = 12;
+
+// Define valor condutividade solo
+	int valorSolo = 0 ;
+
+// Define se alimentou hoje
+	int valorAlimentacao = 0;
+
+// Algumas configurações da conexão com o Arduino e tipo de pinagem	
+	void setup() {
+		Serial.begin(9600);
+		pinMode( pinoRega, OUTPUT);
+	}
+
+// Aqui é onde tudo acontece, a inteligência está aí dentro
+	void loop() {
+
+		// Aqui vamos definir a contagem de tempo usando Millis. Não é 100% confiável, mas assim conseguimos manter o código simples, assim como o hardware.
+		// Nos testes aplicados não encontramos grandes diferenças entre usar o Millis e um Clock.
+	
+			int tempoExecucao = millis();
+			tempo = tempoExecucao / 1000;
+			if( tempo > 3600 ){ hora = hora+1; tempo = 0; }
+			if( hora > 24 ){ hora = 0; valorAlimentacao = 0; }
+			Serial.print( "Tempo: " );
+			Serial.println( tempo );
+			Serial.print( "Hora: " );
+			Serial.println( hora ); 
+			
+		// Vamos verificar a condutividade do solo e gravar em uma variável o primeiro valor coletado
+		// Caso o valor seja menor em 15% realiza a rega
+
+			int valorColetado = analogRead( pinoSolo1 );
+			if( valorSolo == 0 ){ valorSolo = valorColetado - ((valorColetado * 15)/100) ; }
+			Serial.print( "ValorSolo: " ); 
+			Serial.println( valorSolo ); 
+			Serial.print( "ValorColetado: " ); 
+			Serial.println( valorColetado ); 
+
+		// Condição para acender ou apagar a luz		
+		
+			if( hora >= ligar && hora<= desligar ){ 
+				digitalWrite( pinoLuz,HIGH);
+				Serial.println( "Luz: Ligada" ); 
+			}else{
+				digitalWrite( pinoLuz,LOW);
+				Serial.println( "Luz: Desligada" ); 
+			}
+
+		// Condição para irrigar	
+			
+			if( valorColetado < valorSolo ){
+				digitalWrite( pinoRega,HIGH);
+				delay(5000);
+				digitalWrite( pinoRega,LOW);
+				Serial.println( "------------ Realizou Rega" );
+			}
+
+		// Condição para alimentar os peixes			
+			
+			if( hora == 12 && valorAlimentacao == 0 ){
+				pinoServo.write(160);
+				delay(1000);
+				pinoServo.write(16);
+				delay(1000);
+				pinoServo.write(160);
+				delay(1000);
+				pinoServo.write(16); 
+				valorAlimentacao = 1;
+				Serial.println( "------------ Comando Alimentar" );
+			} 
+
+			if( valorAlimentacao == 1 ){
+				Serial.println( "Ja alimentou hoje" );
+			}else{
+				Serial.println( "Nao alimentou ainda" );
+			}
+
+		// Vamos dar um tempo de 1 segundo para o Arduino respirar	
+		delay( 1000 );
+
+	}
