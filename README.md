@@ -8,10 +8,10 @@ Vamos lidar com energia elétrica, sendo assim, todo cuidado é pouco. Não nos 
 # Vamos a pequena lista de o que você vai precisar:
 
 - Ferro de solda e solda ( claro! )
-- Tesoura
+- Tesoura e cola
 - Jumpers
 - Placa compatível Arduino
-- 2 resistores de 10Kohm
+- 1 resistor de 10Kohm
 - Shield com 2 relays
 - Servo ( Opcional )
 
@@ -29,3 +29,6 @@ http://hortadofuturo.com.br/paper-horta-indoor.pdf
 
 # Veja o passo a passo da montagem no link abaixo:
 http://hortadofuturo.com.br/indoor
+
+# Baixe o código do Horta do Futuro para seu Arduino
+https://github.com/hortadofuturo/indoor/blob/master/codigo-arduino-horta
