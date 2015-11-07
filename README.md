@@ -27,8 +27,8 @@ Vamos lidar com energia elétrica, sendo assim, todo cuidado é pouco. Não nos 
 # Imprima as instruções e o layout da placa no link abaixo:
 http://hortadofuturo.com.br/paper-horta-indoor.pdf
 
-# Veja o passo a passo da montagem no link abaixo:
-http://hortadofuturo.com.br/indoor
+# Temos um aplicativo com passo a passo da montagem, inclusive Gifs animados de todo o processo, 100% grátis:
+https://play.google.com/store/apps/details?id=com.adventure.hortafuturo
 
 # Baixe o código do Horta do Futuro para seu Arduino
 https://github.com/hortadofuturo/indoor/blob/master/codigo-arduino-horta
