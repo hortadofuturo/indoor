@@ -17,12 +17,12 @@
 
 // Define portas
 	Servo pinoServo;
-	const int pinoRega = 9;
-	const int pinoLuz = 8;
-	const int pinoSolo1 = A0;
+	const int pinoRega = 9; // Ch2
+	const int pinoLuz = 8; // Ch1
+	const int pinoSolo1 = A0; 
 
 // Configura horario
-	int hora = 23; // Atenção: Hora atual no momento de ligar o Arduino
+	int hora = 12; // Atenção: Hora atual no momento de ligar o Arduino
 	int tempo = 0;
 	int ligar = 6;
 	int desligar = 22;
@@ -38,6 +38,8 @@
 	void setup() {
 		Serial.begin(9600);
 		pinMode( pinoRega, OUTPUT);
+                pinMode( pinoLuz, OUTPUT);
+                pinoServo.attach(7);
 	}
 
 // Aqui é onde tudo acontece, a inteligência está aí dentro
